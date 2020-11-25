@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<header>
+    {% include "_header.html" %}
+</header>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">RentApp</h1>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+                        <ul>
+                            <table>
+                                <thread>
+                                    <tr>
+                                        <th>差額</th>
+                                        <th>名称</th>
+                                        <th>賃料</th>
+                                        <th>間取り</th>
+                                        <th>面積</th>
+                                        <th>築年数</th>
+                                        <th>階数</th>
+                                        <th>バス・トイレ別</th>
+                                        <th>オートロック</th>
+                                        <th>URL</th>
+                                    </tr>
+                                </thread>
+                                <tbody>
+                                    {% for item in object_list %}
+                                    <tr>
+                                        <td>{{ item.rent_diff }}</td>
+                                        <td>{{ item.subtitle }}</td>
+                                        <td>{{ item.rent }}</td>
+                                        <td>{{ item.floor_plan }}</td>
+                                        <td>{{ item.area }}</td>
+                                        <td>{{ item.age }}</td>
+                                        <td>{{ item.floor }}</td>
+                                        <td>{{ item.bath_toilet }}</td>
+                                        <td>{{ item.auto_lock }}</td>
+                                        <td><a href="{{ item.url }}">URL</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            {% include "_footer.html" %}
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+</body>
+
+</html>
