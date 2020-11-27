@@ -333,7 +333,7 @@ def _coordinate(address):
         raise ValueError(f"Invalid address submitted. {address}")
     latitude = soup.find('lat').string
     longitude = soup.find('lng').string
-    time.sleep(1)
+    time.sleep(3)
     return latitude, longitude
 
 
