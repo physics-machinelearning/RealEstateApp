@@ -39,7 +39,7 @@ SUUMO_URL_DICT = {
     '練馬区': 'https://suumo.jp/chintai/tokyo/sc_nerima/',
     '板橋区': 'https://suumo.jp/chintai/tokyo/sc_itabashi/',
     '豊島区': 'https://suumo.jp/chintai/tokyo/sc_toshima/',
-    '北区'; 'https://suumo.jp/chintai/tokyo/sc_kita/',
+    '北区': 'https://suumo.jp/chintai/tokyo/sc_kita/',
     '台東区': 'https://suumo.jp/chintai/tokyo/sc_taito/',
     '墨田区': 'https://suumo.jp/chintai/tokyo/sc_sumida/',
     '江東区': 'https://suumo.jp/chintai/tokyo/sc_koto/',
