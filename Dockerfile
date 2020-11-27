@@ -12,4 +12,4 @@ WORKDIR /app
 
 RUN pip install pipenv
 
-RUN pipenv install --dev　--skip-lock
+RUN pipenv install --dev
