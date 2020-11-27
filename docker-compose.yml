@@ -9,17 +9,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
-    # - db_data:/var/lib/postgresql/data
     - psgl:/var/lib/postgresql/data/
-
-  # dbtool:
-  #   build:
-  #     context: .
-  #     dockerfile: DockerfileDB
-  #   depends_on:
-  #     - postgres
-  #   environment:
-  #     TZ: "Asia/Tokyo"
   
   django:
     build:
@@ -27,11 +17,28 @@ services:
       dockerfile: Dockerfile
     command: bash -c "pipenv run python manage.py makemigrations &&
                       pipenv run python manage.py migrate &&
-                      pipenv run python realestate/parser_suumo.py &&
-                      pipenv run python realestate/prediction.py &&
                       pipenv run python manage.py runserver 0.0.0.0:8000"
     ports:
       - 8000:8000
+    environment:
+      - DEBUG=1
+      - DATABASE_ENGINE=django.db.backends.postgresql
+      - DATABASE_DB=${POSTGRES_DB}
+      - DATABASE_USER=${POSTGRES_USER}
+      - DATABASE_PASSWORD=${POSTGRES_PASSWORD}
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+    depends_on:
+      - postgres
+
+  dbtool:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash -c "pipenv run python manage.py makemigrations &&
+                      pipenv run python manage.py migrate &&
+                      pipenv run python realestate/parser_suumo.py &&
+                      pipenv run python realestate/prediction.py &&"
     environment:
       - DEBUG=1
       - DATABASE_ENGINE=django.db.backends.postgresql
