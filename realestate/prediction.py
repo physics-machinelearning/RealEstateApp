@@ -15,6 +15,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings.settings')
 django.setup()
 
 from realestate.models import Rentproperty
+from realestate.parser_suumo import SUUMO_URL_DICT
 
 POSTGRES_USER = os.environ['POSTGRES_USER']
 POSTGRES_PASSWORD = os.environ['POSTGRES_PASSWORD']
@@ -106,6 +107,7 @@ class PredictRent:
 
 
 if __name__ == '__main__':
-    pr = PredictRent()
-    diff_array, prediction_array, id_array = pr.predict('足立区')
-    pr.insert_db_diff_prediction(diff_array, prediction_array, id_array)
+    for key in SUUMO_URL_DICT.keys():
+        pr = PredictRent()
+        diff_array, prediction_array, id_array = pr.predict(key)
+        pr.insert_db_diff_prediction(diff_array, prediction_array, id_array)

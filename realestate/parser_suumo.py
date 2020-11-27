@@ -33,21 +33,21 @@ SUUMO_URL_DICT = {
     '目黒区': 'https://suumo.jp/chintai/tokyo/sc_meguro/',
     '大田区': 'https://suumo.jp/chintai/tokyo/sc_ota/',
     '世田谷区': 'https://suumo.jp/chintai/tokyo/sc_setagaya/',
-    '渋谷区': 'https://suumo.jp/chintai/tokyo/sc_shibuya/',
-    '中野区': 'https://suumo.jp/chintai/tokyo/sc_nakano/',
-    '杉並区': 'https://suumo.jp/chintai/tokyo/sc_suginami/',
-    '練馬区': 'https://suumo.jp/chintai/tokyo/sc_nerima/',
-    '板橋区': 'https://suumo.jp/chintai/tokyo/sc_itabashi/',
-    '豊島区': 'https://suumo.jp/chintai/tokyo/sc_toshima/',
-    '北区': 'https://suumo.jp/chintai/tokyo/sc_kita/',
-    '台東区': 'https://suumo.jp/chintai/tokyo/sc_taito/',
-    '墨田区': 'https://suumo.jp/chintai/tokyo/sc_sumida/',
-    '江東区': 'https://suumo.jp/chintai/tokyo/sc_koto/',
-    '荒川区': 'https://suumo.jp/chintai/tokyo/sc_arakawa/',
-    '足立区': 'https://suumo.jp/chintai/tokyo/sc_adachi/',
-    '葛飾区': 'https://suumo.jp/chintai/tokyo/sc_katsushika/',
-    '江戸川区': 'https://suumo.jp/chintai/tokyo/sc_edogawa/',
-}
+    '渋谷区': 'https://suumo.jp/chintai/tokyo/sc_shibuya/'}
+#     '中野区': 'https://suumo.jp/chintai/tokyo/sc_nakano/',
+#     '杉並区': 'https://suumo.jp/chintai/tokyo/sc_suginami/',
+#     '練馬区': 'https://suumo.jp/chintai/tokyo/sc_nerima/',
+#     '板橋区': 'https://suumo.jp/chintai/tokyo/sc_itabashi/',
+#     '豊島区': 'https://suumo.jp/chintai/tokyo/sc_toshima/',
+#     '北区': 'https://suumo.jp/chintai/tokyo/sc_kita/',
+#     '台東区': 'https://suumo.jp/chintai/tokyo/sc_taito/',
+#     '墨田区': 'https://suumo.jp/chintai/tokyo/sc_sumida/',
+#     '江東区': 'https://suumo.jp/chintai/tokyo/sc_koto/',
+#     '荒川区': 'https://suumo.jp/chintai/tokyo/sc_arakawa/',
+#     '足立区': 'https://suumo.jp/chintai/tokyo/sc_adachi/',
+#     '葛飾区': 'https://suumo.jp/chintai/tokyo/sc_katsushika/',
+#     '江戸川区': 'https://suumo.jp/chintai/tokyo/sc_edogawa/',
+# }
 
 
 class SuumoParser:
