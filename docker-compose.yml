@@ -11,6 +11,16 @@ services:
     volumes:
     - psgl:/var/lib/postgresql/data/
   
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./static:/static
+    depends_on:
+      django
+
   django:
     build:
       context: .
