@@ -17,7 +17,8 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./app/static:/static
+      # - ./app/static:/static
+      - staticfolder:/staticfolder
     depends_on:
       - django
 
@@ -27,6 +28,7 @@ services:
       dockerfile: Dockerfile
     command: bash -c "pipenv run python manage.py makemigrations &&
                       pipenv run python manage.py migrate &&
+                      pipenv run python manage.py collectstatic --no-input --clear &&
                       pipenv run gunicorn settings.wsgi:application -b 0.0.0.0:8000"
     ports:
       - 8000:8000
@@ -40,6 +42,7 @@ services:
       - DATABASE_PORT=5432
     volumes:
       - ./app:/app
+      - staticfolder:/staticfolder
     depends_on:
       - postgres
 
@@ -66,3 +69,4 @@ services:
 
 volumes:
     psgl:
+    staticfolder:
