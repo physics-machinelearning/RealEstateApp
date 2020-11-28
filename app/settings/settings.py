@@ -130,3 +130,4 @@ STATICFILES_DIRS = [
     # os.path.join(BASE_DIR, 'static')
     ("static", "../static"),
 ]
+STATIC_ROOT = ("../static/")
