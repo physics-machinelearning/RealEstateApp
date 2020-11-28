@@ -23,7 +23,7 @@ services:
 
   django:
     build:
-      context: .
+      context: ./app
       dockerfile: Dockerfile
     command: bash -c "pipenv run python manage.py makemigrations &&
                       pipenv run python manage.py migrate &&
@@ -38,12 +38,14 @@ services:
       - DATABASE_PASSWORD=${POSTGRES_PASSWORD}
       - DATABASE_HOST=postgres
       - DATABASE_PORT=5432
+    volumes:
+      - ./app:/app
     depends_on:
       - postgres
 
   dbtool:
     build:
-      context: .
+      context: ./app
       dockerfile: Dockerfile
     command: bash -c "pipenv run python manage.py makemigrations &&
                       pipenv run python manage.py migrate &&
