@@ -18,7 +18,7 @@ services:
       - 80:80
     volumes:
       # - ./app/static:/static
-      - staticfolder:/app/static
+      - static:/app/static
     depends_on:
       - django
 
@@ -41,7 +41,7 @@ services:
       - DATABASE_PORT=5432
     volumes:
       - ./app:/app
-      - staticfolder:/app/static
+      - static:/app/static
     depends_on:
       - postgres
 
