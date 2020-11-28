@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+flake8 = "*"
 django = "*"
 requests = "*"
 beautifulsoup4 = "*"
@@ -20,7 +21,6 @@ scikit-learn = "*"
 gunicorn = "*"
 
 [dev-packages]
-flake8 = "*"
 
 [requires]
 python_version = "3.7"
