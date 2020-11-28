@@ -17,7 +17,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./static:/static
+      - ./app/static:/static
     depends_on:
       - django
 
