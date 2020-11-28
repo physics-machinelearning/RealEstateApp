@@ -25,7 +25,7 @@ SECRET_KEY = 'vqe536js!=uh$cuv$(w(v9+wtl(7lg%4$_gi5ak02#%*qmb&*r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
