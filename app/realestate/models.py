@@ -29,6 +29,10 @@ class Rentproperty(models.Model):
         app_label = 'realestate'
         # db_table = 'rentproperty'
         unique_together = (('date', 'url'),)
+    
+    @property
+    def rent_diff(self):
+        return round(self.rent_diff, 1)
 
 
 class AddressCoordinate(models.Model):

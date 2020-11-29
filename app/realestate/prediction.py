@@ -1,5 +1,6 @@
 import os
 import sys
+import warnings
 
 import pandas as pd
 from sklearn.model_selection import KFold
@@ -25,6 +26,9 @@ POSTGRES_DB = os.environ['POSTGRES_DB']
 ID = ['property_id']
 X_COLS = ['close_station', 'floor_plan', 'area', 'age', 'floor', 'latitude', 'longititude', 'bath_toilet', 'auto_lock']
 Y_COL = ['rent']
+
+
+warning.simplefilter('ignore')
 
 
 class PredictRent:

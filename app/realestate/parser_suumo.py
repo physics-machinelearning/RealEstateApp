@@ -342,7 +342,7 @@ if __name__ == '__main__':
         try:
             sp = SuumoParser(city_url)
             urls = sp.get_urls()
-            for url in urls[:2]:
+            for url in urls:
                 sp.insert_db(url)
         except Exception as err:
             print(err)
