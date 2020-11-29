@@ -17,7 +17,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - static:/app/static
+      - static:/static
     depends_on:
       - django
 
@@ -25,9 +25,6 @@ services:
     build:
       context: ./app
       dockerfile: Dockerfile
-    command: bash -c "pipenv run python manage.py makemigrations &&
-                      pipenv run python manage.py migrate &&
-                      pipenv run gunicorn settings.wsgi:application -b 0.0.0.0:8000"
     ports:
       - 8000:8000
     environment:
@@ -38,9 +35,10 @@ services:
       - DATABASE_PASSWORD=${POSTGRES_PASSWORD}
       - DATABASE_HOST=postgres
       - DATABASE_PORT=5432
+    env_file:
+      - .env
     volumes:
-      - ./app:/app
-      # - static:/app/static
+      - static:/static
     depends_on:
       - postgres
 
@@ -60,8 +58,6 @@ services:
       - DATABASE_PASSWORD=${POSTGRES_PASSWORD}
       - DATABASE_HOST=postgres
       - DATABASE_PORT=5432
-    volumes:
-      - ./app:/app
     depends_on:
       - postgres
 
