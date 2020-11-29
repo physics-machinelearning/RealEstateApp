@@ -16,8 +16,8 @@ services:
     build: ./nginx
     ports:
       - 80:80
-    volumes:
-      - static:/app/static
+    # volumes:
+    #   - static:/app/static
     depends_on:
       - django
 
@@ -67,4 +67,4 @@ services:
 
 volumes:
     psgl:
-    static:
+    # ssstatic:
