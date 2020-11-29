@@ -14,6 +14,6 @@ RUN ls -a
 
 RUN pip install pipenv
 
-RUN pipenv install --dev
+RUN pipenv install --skip-lock
 
 ENTRYPOINT ["sh", "/entrypoint.sh"]
