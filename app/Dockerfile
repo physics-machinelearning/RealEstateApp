@@ -2,6 +2,8 @@ FROM python:3.7
 
 COPY . /app/
 
+COPY ./static/ /static/
+
 # COPY ./entrypoint.sh /app/
 
 WORKDIR /app
@@ -18,6 +20,6 @@ RUN pipenv install --skip-lock
 
 # ENTRYPOINT ["sh", "/entrypoint.sh"]
 
-CMD ["pipenv", "run", "python", "manage.py", "makemigrations", "realestate"]
+# CMD ["pipenv", "run", "python", "manage.py", "makemigrations", "realestate"]
 
-CMD ["pipenv", "run", "python", "manage.py", "migrate"]
+# CMD ["pipenv", "run", "python", "manage.py", "migrate"]
