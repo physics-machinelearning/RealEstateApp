@@ -2,11 +2,11 @@ FROM python:3.7
 
 COPY . /app/
 
-COPY ./entrypoint.sh /app/
+# COPY ./entrypoint.sh /app/
 
 WORKDIR /app
 
-RUN chmod +x entrypoint.sh
+# RUN chmod +x entrypoint.sh
 
 RUN pwd
 
@@ -16,4 +16,8 @@ RUN pip install pipenv
 
 RUN pipenv install --skip-lock
 
-ENTRYPOINT ["sh", "/entrypoint.sh"]
+# ENTRYPOINT ["sh", "/entrypoint.sh"]
+
+CMD ["pipenv", "run", "python", "manage.py", "makemigrations", "realestate"]
+
+CMD ["pipenv", "run", "python", "manage.py", "migrate"]
