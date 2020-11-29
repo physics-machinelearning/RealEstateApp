@@ -68,4 +68,4 @@ services:
 
 volumes:
     psgl:
-    staticfolder:
+    static:
