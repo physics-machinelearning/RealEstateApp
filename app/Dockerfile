@@ -14,4 +14,4 @@ RUN pip install pipenv
 
 RUN pipenv install --dev
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh"]
