@@ -6,6 +6,8 @@ COPY ./entrypoint.sh /app/
 
 WORKDIR /app
 
+RUN chmod +x entrypoint.sh
+
 RUN pwd
 
 RUN ls -a
@@ -14,4 +16,4 @@ RUN pip install pipenv
 
 RUN pipenv install --dev
 
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["sh", "/entrypoint.sh"]
