@@ -46,9 +46,7 @@ services:
     build:
       context: ./app
       dockerfile: Dockerfile
-    command: bash -c "pipenv run python manage.py makemigrations &&
-                      pipenv run python manage.py migrate &&
-                      pipenv run python realestate/parser_suumo.py &&
+    command: bash -c "pipenv run python realestate/parser_suumo.py &&
                       pipenv run python realestate/prediction.py"
     environment:
       - DEBUG=1
