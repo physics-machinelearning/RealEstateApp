@@ -1,13 +1,15 @@
 FROM python:3.7
 
-COPY . /app
+COPY . /app/
 
 WORKDIR /app
+
+RUN pwd
+
+RUN ls -a
 
 RUN pip install pipenv
 
 RUN pipenv install --dev
-
-RUN pipenv graph
 
 ENTRYPOINT ["sh", "/entrypoint.sh"]
