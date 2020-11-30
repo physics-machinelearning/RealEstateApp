@@ -20,6 +20,6 @@ from realestate.views import eachcityview, cityview
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', cityview),
+    path('', cityview, name='cityview'),
     path('<address>', eachcityview, name='eachcity'),
 ]
