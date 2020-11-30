@@ -8,6 +8,7 @@ import urllib
 import django
 from django.conf import settings
 from dotenv import load_dotenv
+from django.utils import timezone
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings.settings')
@@ -134,7 +135,8 @@ class SuumoParser:
                     if len(Rentproperty.objects.filter(url=url_all).all()) == 0:
                         rp.save()
                     else:
-                        print('This property is already registered')
+                        rp = Rentproperty.objects.filter(url=url_all).first()
+                        rp.save()
             except Exception as e:
                 print(e)
 

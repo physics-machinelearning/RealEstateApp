@@ -28,7 +28,7 @@ X_COLS = ['close_station', 'floor_plan', 'area', 'age', 'floor', 'latitude', 'lo
 Y_COL = ['rent']
 
 
-warning.simplefilter('ignore')
+warnings.simplefilter('ignore')
 
 
 class PredictRent:
