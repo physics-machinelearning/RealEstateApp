@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.shortcuts import render
+from datetime import datetime, timedelta
 
 from realestate.models import Rentproperty
+from realestate.forms import SearchConditionForm
 
 
 CITY_LIST = [
@@ -28,10 +30,56 @@ class EachCityView(ListView):
 
 
 def eachcityview(request, address):
-    context = {}
-    context['object_list'] = Rentproperty.objects\
-        .filter(location__contains=address).order_by('rent_diff')
-    return render(request, 'city.html', context)
+    last_record = Rentproperty.objects.order_by("-date").first()
+    year = last_record.date.year
+    month = last_record.date.month
+    day = last_record.date.day
+    start = datetime(year, month, day)
+    end = start + timedelta(days=1)
+    
+    if request.method == 'POST':
+        form = SearchConditionForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            # form.save()
+            min_rent = post.min_rent
+            max_rent = post.max_rent
+            floor_plan = post.floor_plan
+            min_area = post.min_area
+            min_area = float(min_area)
+
+            if post.bath_toilet == None:
+                bath_toilet = None
+            else:
+                if post.bath_toilet == '別':
+                    bath_toilet = True
+                else:
+                    bath_toilet = False
+
+            if post.autolock == None:
+                autolock = None
+            else:
+                if post.autolock == 'オートロック有り':
+                    autolock = True
+                else:
+                    autolock = False
+
+            object_list = Rentproperty.objects.filter(location__contains=address).filter(date__range=(start, end))
+            object_list = object_list.filter(rent__range=(min_rent, max_rent))
+            object_list = object_list.filter(floor_plan=floor_plan)
+            object_list = object_list.filter(area__gte=min_area)
+            object_list = object_list.order_by('rent_diff')
+
+            context = {}
+            context['form'] = form
+            context['object_list'] = object_list
+            return render(request, 'city.html', context)
+    else:
+        form = SearchConditionForm()
+        context = {}
+        context['form'] = form
+        context['object_list'] = Rentproperty.objects.filter(location__contains=address).filter(date__range=(start, end)).order_by('rent_diff')
+        return render(request, 'city.html', context)
 
 
 def cityview(request):

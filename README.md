@@ -8,7 +8,7 @@
 
 - postgres -D /usr/local/var/postgres
 - createuser -P kuroki
-- createdb suumo-db -O kurok
+- createdb suumo-db -O kuroki
 
 - pipenv run python manage.py makemigrations realestate
 - pipenv run python manage.py migrate
@@ -32,3 +32,7 @@
 
 ### install git
 - yum install git
+
+## local
+- pipenv run python realestate/parser_suumo.py
+- pipenv run python realestate/prediction.py

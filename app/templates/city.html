@@ -23,45 +23,42 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">RentApp</h1>
+                        <h1><a href="{% url 'cityview' %}">RentApp</a></h1>
                     </div>
-
+                    
                     <!-- Content Row -->
+                    <form method="POST">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-3">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                </div>
+                                <div class="col-9">
+                                    <button type="submit">検索</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                     <div class="row">
-                        <ul>
-                            <table>
-                                <thread>
-                                    <tr>
-                                        <th>差額</th>
-                                        <th>名称</th>
-                                        <th>賃料</th>
-                                        <th>間取り</th>
-                                        <th>面積</th>
-                                        <th>築年数</th>
-                                        <th>階数</th>
-                                        <th>バス・トイレ別</th>
-                                        <th>オートロック</th>
-                                        <th>URL</th>
-                                    </tr>
-                                </thread>
-                                <tbody>
-                                    {% for item in object_list %}
-                                    <tr>
-                                        <td>{{ item.rent_diff_round }}</td>
-                                        <td>{{ item.subtitle }}</td>
-                                        <td>{{ item.rent }}</td>
-                                        <td>{{ item.floor_plan }}</td>
-                                        <td>{{ item.area_round }}</td>
-                                        <td>{{ item.age }}</td>
-                                        <td>{{ item.floor }}</td>
-                                        <td>{{ item.bath_toilet }}</td>
-                                        <td>{{ item.auto_lock }}</td>
-                                        <td><a href="{{ item.url }}">URL</a></td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </ul>
+                        {% for item in object_list %}
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="{{ item.url }}">{{ item.subtitle }}</a>
+                                </h5>
+                            </div>
+                            <div class="card-text">
+                                <ul>差額: {{ item.rent_diff_round }}</ul>
+                                <ul>賃料: {{ item.rent }}万円</ul>
+                                <ul>面積: {{ item.area_round }}m2</ul>
+                                <ul>築年数: {{ item.age }}年</ul>
+                                <ul>{{ item.floor }}階</ul>
+                                <ul>{{ item.bath_toilet_ja }}</ul>
+                                <ul>{{ item.auto_lock_ja }}</ul>
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
