@@ -83,7 +83,7 @@ class SuumoParser:
 
         for i in range(self.pages_num-1):
             pg = str(i+2)
-            url = self.url + '&pn=' + pg
+            url = self.url + '?page=' + pg
             urls.append(url)
         return urls
 
