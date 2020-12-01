@@ -111,7 +111,7 @@ class SuumoParser:
                     detail_url = self._get_detail_url(table)
                     url_all = urllib.parse.urljoin(url, detail_url)
                     bath_toilet, auto_lock = self._get_details(url_all)
-                    print(url_all)
+                    # print(url_all)
 
                     rp = Rentproperty(
                         # date=date,
@@ -341,10 +341,7 @@ def _coordinate(address):
 
 if __name__ == '__main__':
     for city_url in SUUMO_URL_DICT.values():
-        try:
-            sp = SuumoParser(city_url)
-            urls = sp.get_urls()
-            for url in urls:
-                sp.insert_db(url)
-        except Exception as err:
-            print(err)
+        sp = SuumoParser(city_url)
+        urls = sp.get_urls()
+        for url in urls:
+            sp.insert_db(url)
