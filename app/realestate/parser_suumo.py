@@ -340,8 +340,12 @@ def _coordinate(address):
 
 
 if __name__ == '__main__':
-    for city_url in SUUMO_URL_DICT.values():
+    for city_name, city_url in SUUMO_URL_DICT.items():
         sp = SuumoParser(city_url)
         urls = sp.get_urls()
-        for url in urls:
-            sp.insert_db(url)
+        for i, url in enumerate(urls):
+            try:
+                print(city_name, i, url)
+                sp.insert_db(url)
+            except Exception as err:
+                print(err)
