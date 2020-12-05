@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.shortcuts import render
+from django.core.paginator import Paginator, EmptyPage
 from datetime import datetime, timedelta
 
 from realestate.models import Rentproperty
@@ -37,10 +38,13 @@ def eachcityview(request, address):
     start = datetime(year, month, day)
     end = start + timedelta(days=1)
     
+    num = 10
+
     if request.method == 'POST':
         form = SearchConditionForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
+            page_int = request.GET.get('page')
             # form.save()
             min_rent = float(post.min_rent)
             max_rent = float(post.max_rent)
@@ -64,30 +68,47 @@ def eachcityview(request, address):
                 else:
                     autolock = False
 
-            object_list = Rentproperty.objects.filter(location__contains=address)
-            # object_list = object_list.filter(date__range=(start, end))
+            queryset = Rentproperty.objects.filter(location__contains=address)
+            # queryset = queryset.filter(date__range=(start, end))
             if min_rent:
-                object_list = object_list.filter(rent__gte=min_rent)
+                queryset = queryset.filter(rent__gte=min_rent)
             if max_rent:
-                object_list = object_list.filter(rent__lte=max_rent)
+                queryset = queryset.filter(rent__lte=max_rent)
             if floor_plan:
-                object_list = object_list.filter(floor_plan=floor_plan)
+                queryset = queryset.filter(floor_plan=floor_plan)
             if min_area:
-                object_list = object_list.filter(area__gte=min_area)
-            object_list = object_list.order_by('rent_diff')
+                queryset = queryset.filter(area__gte=min_area)
+            queryset = queryset.order_by('rent_diff')
+            paginator = Paginator(queryset, num)
+            try:
+                if page_int == None:
+                    page_int = 0
+                inquiries_page = paginator.get_page(page_int)
+                context = {}
+                context['form'] = form
+                context['object_list'] = inquiries_page
+                return render(request, 'city.html', context)
+            except Exception as err:
+                print('page not found')
+                print(err)
 
-            context = {}
-            context['form'] = form
-            context['object_list'] = object_list
-            return render(request, 'city.html', context)
     else:
         form = SearchConditionForm()
+        page_int = request.GET.get('page')
+        print('page_int', page_int)
+        queryset = Rentproperty.objects.filter(location__contains=address)
+        # queryset = queryset.filter(date__range=(start, end))
+        queryset = queryset.order_by('rent_diff')
+
+        paginator = Paginator(queryset, num)
+        try:
+            inquiries_page = paginator.get_page(page_int)
+        except EmptyPage:
+            print('page not found')
+
         context = {}
+        context['object_list'] = inquiries_page
         context['form'] = form
-        object_list = Rentproperty.objects.filter(location__contains=address)
-        # object_list = object_list.filter(date__range=(start, end))
-        object_list = object_list.order_by('rent_diff')
-        context['object_list'] = object_list
         return render(request, 'city.html', context)
 
 
