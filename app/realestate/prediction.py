@@ -112,6 +112,9 @@ class PredictRent:
 
 if __name__ == '__main__':
     for key in SUUMO_URL_DICT.keys():
-        pr = PredictRent()
-        diff_array, prediction_array, id_array = pr.predict(key)
-        pr.insert_db_diff_prediction(diff_array, prediction_array, id_array)
+        try:
+            pr = PredictRent()
+            diff_array, prediction_array, id_array = pr.predict(key)
+            pr.insert_db_diff_prediction(diff_array, prediction_array, id_array)
+        except Exception as e:
+            print(e)
