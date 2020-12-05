@@ -64,10 +64,16 @@ def eachcityview(request, address):
                 else:
                     autolock = False
 
-            object_list = Rentproperty.objects.filter(location__contains=address).filter(date__range=(start, end))
-            object_list = object_list.filter(rent__range=(min_rent, max_rent))
-            object_list = object_list.filter(floor_plan=floor_plan)
-            object_list = object_list.filter(area__gte=min_area)
+            object_list = Rentproperty.objects.filter(location__contains=address)
+            # object_list = object_list.filter(date__range=(start, end))
+            if min_rent:
+                object_list = object_list.filter(rent__gte=min_rent)
+            if max_rent:
+                object_list = object_list.filter(rent__lte=max_rent)
+            if floor_plan:
+                object_list = object_list.filter(floor_plan=floor_plan)
+            if min_area:
+                object_list = object_list.filter(area__gte=min_area)
             object_list = object_list.order_by('rent_diff')
 
             context = {}
