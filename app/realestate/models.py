@@ -10,6 +10,39 @@ def _yield_area_choice():
         area_list += temp
     return area_list
 
+RENT_CHOICE = (
+    (0, 0),
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 6),
+    (7, 7),
+    (8, 8),
+    (9, 9),
+    (10, 10),
+    (11, 11),
+    (12, 12),
+    (13, 13),
+    (14, 14),
+    (15, 15),
+    (16, 16),
+    (17, 17),
+    (18, 18),
+    (19, 19),
+    (20, 20),
+    (21, 21),
+    (22, 22),
+    (23, 23),
+    (24, 24),
+    (25, 25),
+    (26, 26),
+    (27, 27),
+    (28, 28),
+    (29, 29),
+)
+
 FLOOR_CHOICE = (
     ('ワンルーム', 'ワンルーム'),
     ('1K', '1K'),
@@ -118,10 +151,10 @@ class AddressCoordinate(models.Model):
 
 class SearchCondition(models.Model):
     # 賃料下限
-    min_rent = models.FloatField()
+    min_rent = models.FloatField(choices=RENT_CHOICE)
 
     # 賃料上限
-    max_rent = models.FloatField()
+    max_rent = models.FloatField(choices=RENT_CHOICE)
 
     # 間取り
     floor_plan = models.CharField(choices=FLOOR_CHOICE, max_length=10)

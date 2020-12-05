@@ -78,7 +78,10 @@ def eachcityview(request, address):
         form = SearchConditionForm()
         context = {}
         context['form'] = form
-        context['object_list'] = Rentproperty.objects.filter(location__contains=address).filter(date__range=(start, end)).order_by('rent_diff')
+        object_list = Rentproperty.objects.filter(location__contains=address)
+        # object_list = object_list.filter(date__range=(start, end))
+        object_list = object_list.order_by('rent_diff')
+        context['object_list'] = object_list
         return render(request, 'city.html', context)
 
 
