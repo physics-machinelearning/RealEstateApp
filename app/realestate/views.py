@@ -42,8 +42,8 @@ def eachcityview(request, address):
         if form.is_valid():
             post = form.save(commit=False)
             # form.save()
-            min_rent = post.min_rent
-            max_rent = post.max_rent
+            min_rent = float(post.min_rent)
+            max_rent = float(post.max_rent)
             floor_plan = post.floor_plan
             min_area = post.min_area
             min_area = float(min_area)
