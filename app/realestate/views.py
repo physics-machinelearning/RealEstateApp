@@ -44,8 +44,6 @@ def eachcityview(request, address):
         form = SearchConditionForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            page_int = request.GET.get('page')
-            # form.save()
             min_rent = float(post.min_rent)
             max_rent = float(post.max_rent)
             floor_plan = post.floor_plan
@@ -80,9 +78,9 @@ def eachcityview(request, address):
                 queryset = queryset.filter(area__gte=min_area)
             queryset = queryset.order_by('rent_diff')
             paginator = Paginator(queryset, num)
+            request.session['queryset'] = queryset
             try:
-                if page_int == None:
-                    page_int = 0
+                page_int = 1
                 inquiries_page = paginator.get_page(page_int)
                 context = {}
                 context['form'] = form
@@ -94,11 +92,15 @@ def eachcityview(request, address):
 
     else:
         form = SearchConditionForm()
-        page_int = request.GET.get('page')
-        print('page_int', page_int)
-        queryset = Rentproperty.objects.filter(location__contains=address)
-        # queryset = queryset.filter(date__range=(start, end))
-        queryset = queryset.order_by('rent_diff')
+        page_int = request.GET.get('page', 1)
+
+        if 'queryset' in request.session:
+            print(request.session['queryset'])
+            queryset = request.session['queryset']
+        else:
+            queryset = Rentproperty.objects.filter(location__contains=address)
+            # queryset = queryset.filter(date__range=(start, end))
+            queryset = queryset.order_by('rent_diff')
 
         paginator = Paginator(queryset, num)
         try:
@@ -115,3 +117,7 @@ def eachcityview(request, address):
 def cityview(request):
     context = {'city_list': CITY_LIST}
     return render(request, 'index.html', context)
+
+
+def mapview(request):
+    pass
