@@ -15,3 +15,15 @@ class SearchConditionForm(ModelForm):
             'bath_toilet': 'バストイレ',
             'autolock': 'オートロック'
         }
+
+
+class SearchConditionMapForm(ModelForm):
+    class Meta:
+        model = SearchCondition
+        fields = ('floor_plan', 'min_area', 'bath_toilet', 'autolock')
+        labels = {
+            'floor_plan': '間取り',
+            'min_area': '占有面積下限',
+            'bath_toilet': 'バストイレ',
+            'autolock': 'オートロック'
+        }

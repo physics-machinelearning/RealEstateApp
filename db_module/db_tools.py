@@ -11,16 +11,16 @@ from models import Base
 
 load_dotenv()
 
-MYSQL_USER = os.environ['MYSQL_USER']
-MYSQL_PASSWORD = os.environ['MYSQL_PASSWORD']
-MYSQL_HOST = os.environ['MYSQL_HOST']
-MYSQL_DB = os.environ['MYSQL_DB']
+POSTGRES_USER = os.environ['MYSQL_USER']
+POSTGRES_PASSWORD = os.environ['MYSQL_PASSWORD']
+POSTGRES_HOST = os.environ['MYSQL_HOST']
+POSTGRES_DB = os.environ['MYSQL_DB']
 
 
 def dropall(table_name):
     engine = create_engine('postgresql://{user}:{password}@{host}/{db}'
-                           .format(user=MYSQL_USER, password=MYSQL_PASSWORD,
-                                   host=MYSQL_HOST, db=MYSQL_DB),
+                           .format(user=POSTGRES_USER, password=POSTGRES_PASSWORD,
+                                   host=POSTGRES_HOST, db=POSTGRES_DB),
                            encoding='utf-8', echo=False)
     conn = engine.connect()
     conn.execute("DROP TABLE IF EXISTS "+table_name+";")
@@ -28,8 +28,8 @@ def dropall(table_name):
 
 def getall(table_name):
     conn = psycopg2.connect('postgresql://{user}:{password}@{host}/{db}'
-                              .format(user=MYSQL_USER, password=MYSQL_PASSWORD,
-                                      host=MYSQL_HOST, db=MYSQL_DB))
+                              .format(user=POSTGRES_USER, password=POSTGRES_PASSWORD,
+                                      host=POSTGRES_HOST, db=POSTGRES_DB))
     cur = conn.cursor()
     cur.execute("SELECT * FROM "+table_name)
     col_name = [description[0] for description in cur.description]
@@ -42,16 +42,16 @@ def getall(table_name):
 
 def connect_db():
     engine = create_engine('postgresql://{user}:{password}@{host}/{db}'
-                            .format(user=MYSQL_USER, password=MYSQL_PASSWORD,
-                            host=MYSQL_HOST, db=MYSQL_DB))
+                            .format(user=POSTGRES_USER, password=POSTGRES_PASSWORD,
+                            host=POSTGRES_HOST, db=POSTGRES_DB))
     session = Session(bind = engine)
     return session
 
 
 def create_table():
     engine = create_engine('postgresql://{user}:{password}@{host}/{db}'
-                            .format(user=MYSQL_USER, password=MYSQL_PASSWORD,
-                            host=MYSQL_HOST, db=MYSQL_DB))
+                            .format(user=POSTGRES_USER, password=POSTGRES_PASSWORD,
+                            host=POSTGRES_HOST, db=POSTGRES_DB))
     # if not engine.dialect.has_table(engine, MYSQL_DB):
     Base.metadata.create_all(engine)
 
