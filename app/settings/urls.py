@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from realestate.views import eachcityview, cityview
+from realestate.views import eachcityview, cityview, mapview
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', cityview, name='cityview'),
     path('<address>', eachcityview, name='eachcity'),
+    path('map/', mapview, name='map'),
 ]
