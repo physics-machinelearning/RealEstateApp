@@ -41,7 +41,7 @@ services:
     volumes:
       - static:/static
     depends_on:
-      - postgres
+      - dbtool
 
   dbtool:
     build:
@@ -60,7 +60,7 @@ services:
       - DATABASE_HOST=postgres
       - DATABASE_PORT=5432
     depends_on:
-      - django
+      - postgres
 
 volumes:
     psgl:
