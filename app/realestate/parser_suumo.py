@@ -6,9 +6,7 @@ import time
 import urllib
 
 import django
-from django.conf import settings
 from dotenv import load_dotenv
-from django.utils import timezone
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings.settings')
@@ -27,14 +25,14 @@ URL = 'http://www.geocoding.jp/api/'
 SUUMO_URL_DICT = {
     '中央区': 'https://suumo.jp/chintai/tokyo/sc_chuo/',
     '千代田区': 'https://suumo.jp/chintai/tokyo/sc_chiyoda/',
-    '文京区': 'https://suumo.jp/chintai/tokyo/sc_bunkyo/',
-    '港区': 'https://suumo.jp/chintai/tokyo/sc_minato/',
-    '新宿区': 'https://suumo.jp/chintai/tokyo/sc_shinjuku/',
-    '品川区': 'https://suumo.jp/chintai/tokyo/sc_shinagawa/',
-    '目黒区': 'https://suumo.jp/chintai/tokyo/sc_meguro/',
-    '大田区': 'https://suumo.jp/chintai/tokyo/sc_ota/',
-    '世田谷区': 'https://suumo.jp/chintai/tokyo/sc_setagaya/',
-    '渋谷区': 'https://suumo.jp/chintai/tokyo/sc_shibuya/'}
+    '文京区': 'https://suumo.jp/chintai/tokyo/sc_bunkyo/'}
+    # '港区': 'https://suumo.jp/chintai/tokyo/sc_minato/',
+    # '新宿区': 'https://suumo.jp/chintai/tokyo/sc_shinjuku/',
+    # '品川区': 'https://suumo.jp/chintai/tokyo/sc_shinagawa/',
+    # '目黒区': 'https://suumo.jp/chintai/tokyo/sc_meguro/',
+    # '大田区': 'https://suumo.jp/chintai/tokyo/sc_ota/',
+    # '世田谷区': 'https://suumo.jp/chintai/tokyo/sc_setagaya/',
+    # '渋谷区': 'https://suumo.jp/chintai/tokyo/sc_shibuya/',
 #     '中野区': 'https://suumo.jp/chintai/tokyo/sc_nakano/',
 #     '杉並区': 'https://suumo.jp/chintai/tokyo/sc_suginami/',
 #     '練馬区': 'https://suumo.jp/chintai/tokyo/sc_nerima/',
@@ -83,7 +81,7 @@ class SuumoParser:
 
         for i in range(self.pages_num-1):
             pg = str(i+2)
-            url = self.url + '&pn=' + pg
+            url = self.url + '?page=' + pg
             urls.append(url)
         return urls
 
@@ -111,7 +109,7 @@ class SuumoParser:
                     detail_url = self._get_detail_url(table)
                     url_all = urllib.parse.urljoin(url, detail_url)
                     bath_toilet, auto_lock = self._get_details(url_all)
-                    print(url_all)
+                    # print(url_all)
 
                     rp = Rentproperty(
                         # date=date,
@@ -340,11 +338,12 @@ def _coordinate(address):
 
 
 if __name__ == '__main__':
-    for city_url in SUUMO_URL_DICT.values():
-        try:
-            sp = SuumoParser(city_url)
-            urls = sp.get_urls()
-            for url in urls:
+    for city_name, city_url in SUUMO_URL_DICT.items():
+        sp = SuumoParser(city_url)
+        urls = sp.get_urls()
+        for i, url in enumerate(urls):
+            try:
+                print(city_name, i, url)
                 sp.insert_db(url)
-        except Exception as err:
-            print(err)
+            except Exception as err:
+                print(err)
